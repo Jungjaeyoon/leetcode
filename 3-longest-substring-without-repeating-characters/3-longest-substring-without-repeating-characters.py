@@ -7,7 +7,7 @@ class Solution:
                 ptrn.append(x)
                 maxlen = max(maxlen,len(ptrn))
             elif x in ptrn:
-                maxlen = max(maxlen,len(ptrn))
+                
 
                 dupos=0
                 for s in ptrn:
