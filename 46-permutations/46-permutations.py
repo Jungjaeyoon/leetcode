@@ -7,9 +7,9 @@ class Solution:
                 solution.append(ans)
             else:
 
-                for x in num:
-                    newans=ans+[x]
-                    newnum=[ n for n in num if n is not x]
+                for x in range(len(num)):
+                    newans=ans+[num[x]]
+                    newnum=num[:x]+num[x+1:]
                     permutation(newnum,newans,remain-1)
 
 
