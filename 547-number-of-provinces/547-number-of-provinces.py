@@ -1,24 +1,31 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
-    
-        c = len(isConnected)
-        cn = len(isConnected[0])
-        cnt = 0 
-        passlist = []
-            
-        def checker(x):
-            connectedCity = [ z for z,y in enumerate(isConnected[x]) if y != 0]
-            for pos in connectedCity:
-                isConnected[x][pos] = 0 
-                passlist.append(pos)
-                checker(pos)
-
-
-
-        for x in range(c):
-            if x not in passlist:
-                if sum(isConnected[x]) > 0:
-                    cnt+=1
-                checker(x)
-            
-        return cnt
+    def findCircleNum(self, M: List[List[int]]) -> int:
+        
+        graph = collections.defaultdict(list)
+        
+        if not M:
+            return 0
+        
+        n = len(M)
+        for i in range(n):
+            for j in range(i+1,n):
+                if M[i][j]==1:
+                    graph[i].append(j)
+                    graph[j].append(i)
+        
+        visit = [False]*n
+        
+        def dfs(u):
+            for v in graph[u]:
+                if visit[v] == False:
+                    visit[v] = True
+                    dfs(v)
+        
+        count = 0
+        for i in range(n):
+            if visit[i] == False:
+                count += 1
+                visit[i] = True
+                dfs(i)
+        
+        return count
